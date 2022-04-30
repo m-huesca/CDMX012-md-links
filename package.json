@@ -13,6 +13,7 @@
     "eslint-plugin-import": "^2.26.0"
   },
   "dependencies": {
+    "axios": "^0.27.2",
     "cheerio": "^1.0.0-rc.10",
     "marked": "^4.0.14"
   }
