@@ -3,6 +3,7 @@ const process = require('process');
 const { validPath, absolutePath } = require('./lib/mdlinks');
 const { verifyInput } = require('./lib/resolvePath');
 const { validateLink } = require('./lib/validate');
+const { getStats } = require('./lib/stats');
 
 const userInput = process.argv[3];
 const egPromise = {
@@ -20,6 +21,8 @@ if (process.argv[2] === '--valid') {
   console.log(verifyInput(userInput), 'mdlinks');
 } else if (process.argv[2] === '--val') {
   console.log(validateLink(egPromise), 'mdlinks');
+} else if (process.argv[2] === '--stats') {
+  console.log(getStats(egPromise), 'mdlinks');
 } else {
   console.log('Not valid');
 }
