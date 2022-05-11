@@ -1,10 +1,10 @@
 #!/usr/bin/env node
-
-const yargs = require('yargs');
-const { verifyInput } = require('./lib/resolvePath');
+const process = require('../lib/nodeFiles');
+const yargs = require('../lib/nodeFiles');
+const { mdLink } = require('../lib/mdlinks');
 
 //  CLI
-const { argv } = yargs
+const argv = yargs
   .scriptName('mdLinks')
   .usage('\nUsage: $0 path --validate --stats \n file paths can be absolue or relative \n --validate and --stats are optional')
   .example('$0 docs\\doc.md --validate --stats')
@@ -19,10 +19,27 @@ const { argv } = yargs
     describe: 'Shows stats about links found in md files',
   })
   .alias('h', 'help');
-// User inputs
-const inputPath = argv._[0];
-const { validate } = argv.validate;
-const { getStats } = argv.stats;
 
-// mdLinks
-mdLinks(inputPath, validate)
+// validate path
+
+const main = () => {
+  // User inputs
+  const inputPath = process.argv[2];
+  const { validate } = yargs.argv.validate;
+  const { stats } = yargs.argv.stats;
+  let option = '';
+  if (inputPath === undefined) {
+    console.log('Hmm... command not valid, type --help for availabe options');
+  // ! before a fn makes the expresion return a boolean based on the reurn value of the function
+  } else if (validate) {
+    option = 'validate';
+    mdLink(inputPath, option).then((solved) => console.log(solved));
+  } else if (stats) {
+    option = 'stats';
+    mdLink(inputPath, option).then((solved) => console.log(solved));
+  } else if (stats && validate) {
+    option = 'validate, stats';
+    mdLink(inputPath, option).then((solved) => console.log(solved));
+  }
+};
+main();

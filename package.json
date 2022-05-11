@@ -1,16 +1,13 @@
 {
   "name": "md-links",
+  "main": "./bin/cli.js",
   "version": "0.1.0",
   "engines": {
     "node": ">=14.x"
   },
-  "description": "ibrary that helps identify broken or deprecated links in markdown files. ",
-  "bin": {
-    "md-links": "./cli.js"
-  },
-  "scripts": {
-    "start": "node index.js"
-  },
+  "description": "library that helps identify broken or deprecated links in markdown files. ",
+  "bin": "./bin/cli.js",
+ 
   "devDependencies": {
     "eslint": "^8.13.0",
     "eslint-config-airbnb-base": "^15.0.0",
