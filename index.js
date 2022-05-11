@@ -1,24 +1,21 @@
-// const process = require('process');
+const { process, fs } = require('./lib/nodeFiles');
+const { validateLink } = require('./lib/validate');
+const { getStats } = require('./lib/stats');
+const { verifyPath, fileOrDir } = require('./lib/resolvePath');
+const { parseFile } = require('./lib/readFile');
 
-// const { validPath, absolutePath } = require('./lib/mdlinks');
-// const { verifyInput } = require('./lib/resolvePath');
-// const { validateLink } = require('./lib/validate');
-// const { getStats } = require('./lib/stats');
-
-// const userInput = process.argv[3];
+const userInput = process.argv[3];
+const flag = process.argv[2];
 // const egPromise = {
 //   href: 'https://axios-http.com/docs/intro',
 //   text: 'Axios',
 //   path: '/Users/mhuesca/CDMX012-md-links/docs/docsLevel1/docsLevel2/doc-10.md',
 // };
-// const mdLinks = (verifyCallback) => verifyCallback();
 
-// if (process.argv[2] === '--valid') {
-//   console.log(mdLinks(validPath));
-// } else if (process.argv[2] === '--absolute') {
-//   console.log(mdLinks(absolutePath));
-// } else if (process.argv[2] === '--resolve') {
-//   console.log(verifyInput(userInput), 'mdlinks');
+// if (flag === 'null') {
+//   console.log(mdLink(userInput));
+// } else if (flag === '--validate' || flag === '--v') {
+//   console.log(validateLink(userInput));
 // } else if (process.argv[2] === '--val') {
 //   console.log(validateLink(egPromise), 'mdlinks');
 // } else if (process.argv[2] === '--stats') {
@@ -26,6 +23,23 @@
 // } else {
 //   console.log('Not valid');
 // }
-// // module.exports = () => {
-// //   // ...
-// // };
+
+function mdLink(inputPath, options) {
+  return new Promise((resolve, reject) => {
+    if (fs.existsSync(inputPath)) {
+      const solvedPath = verifyPath(inputPath);
+      const mdFiles = fileOrDir(solvedPath);
+      const mdLinks = parseFile(mdFiles);
+      if (options === undefined) {
+        resolve(mdLinks);
+      } else if (options === '--validate') {
+        resolve(validateLink(mdLinks));
+      } else if (options === '--stats') {
+        resolve(getStats(mdLinks));
+      } else {
+        reject(console.log('option not valid'));
+      }
+    }
+  });
+}
+mdLink();
