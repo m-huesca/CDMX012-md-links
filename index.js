@@ -1,11 +1,11 @@
-const { process, fs } = require('./lib/nodeFiles');
-const { validateLink } = require('./lib/validate');
-const { getStats } = require('./lib/stats');
-const { verifyPath, fileOrDir } = require('./lib/resolvePath');
-const { parseFile } = require('./lib/readFile');
+// const { process, fs } = require('./lib/nodeFiles');
+// const { validateLink } = require('./lib/validate');
+// const { getStats } = require('./lib/stats');
+// const { verifyPath, fileOrDir } = require('./lib/resolvePath');
+// const { parseFile } = require('./lib/readFile');
 
-const userInput = process.argv[3];
-const flag = process.argv[2];
+// const userInput = process.argv[3];
+// const flag = process.argv[2];
 // const egPromise = {
 //   href: 'https://axios-http.com/docs/intro',
 //   text: 'Axios',
@@ -24,22 +24,22 @@ const flag = process.argv[2];
 //   console.log('Not valid');
 // }
 
-function mdLink(inputPath, options) {
-  return new Promise((resolve, reject) => {
-    if (fs.existsSync(inputPath)) {
-      const solvedPath = verifyPath(inputPath);
-      const mdFiles = fileOrDir(solvedPath);
-      const mdLinks = parseFile(mdFiles);
-      if (options === undefined) {
-        resolve(mdLinks);
-      } else if (options === '--validate') {
-        resolve(validateLink(mdLinks));
-      } else if (options === '--stats') {
-        resolve(getStats(mdLinks));
-      } else {
-        reject(console.log('option not valid'));
-      }
-    }
-  });
-}
-mdLink();
+// function mdLink(inputPath, options) {
+//   return new Promise((resolve, reject) => {
+//     if (fs.existsSync(inputPath)) {
+//       const solvedPath = verifyPath(inputPath);
+//       const mdFiles = fileOrDir(solvedPath);
+//       const mdLinks = parseFile(mdFiles);
+//       if (options === undefined) {
+//         resolve(mdLinks);
+//       } else if (options === '--validate') {
+//         resolve(validateLink(mdLinks));
+//       } else if (options === '--stats') {
+//         resolve(getStats(mdLinks));
+//       } else {
+//         reject(console.log('option not valid'));
+//       }
+//     }
+//   });
+// }
+// mdLink();
